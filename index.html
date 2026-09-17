@@ -1,645 +1,516 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Amara, the LinkedIn Girl I Met</title>
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amara, the LinkedIn Girl I Met</title>
+    
+    <!-- Google Fonts for World-Class Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Great+Vibes&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <style>
-    :root {
-      --bg-dark: #0a060d;
-      --bg-card: rgba(23, 13, 28, 0.75);
-      --accent-rose: #ff2a6d;
-      --accent-wine: #800a36;
-      --accent-gold: #f7d070;
-      --text-main: #f3eaf8;
-      --text-muted: #bda2c7;
-      --border-glow: rgba(255, 42, 109, 0.3);
-    }
+    <style>
+        :root {
+            --primary: #d42a54;
+            --primary-soft: rgba(212, 42, 84, 0.15);
+            --bg-dark: #0a0508;
+            --card-bg: rgba(22, 12, 18, 0.75);
+            --text-gold: #f3c68f;
+            --text-light: #fbebf0;
+            --text-subtle: #bba6b0;
+            --rose-glow: 0 0 25px rgba(212, 42, 84, 0.4);
+            --gold-glow: 0 0 15px rgba(243, 198, 143, 0.3);
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
 
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      line-height: 1.8;
-      overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 15% 15%, rgba(128, 10, 54, 0.25) 0%, transparent 45%),
-        radial-gradient(circle at 85% 85%, rgba(255, 42, 109, 0.15) 0%, transparent 50%);
-      background-attachment: fixed;
-    }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.9;
+            font-size: 1.1rem;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(212, 42, 84, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(138, 28, 64, 0.1) 0%, transparent 40%);
+        }
 
-    /* Floating Heart Particles Animation */
-    .hearts-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
+        /* Animated Floating Hearts Background */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
 
-    .heart-particle {
-      position: absolute;
-      color: var(--accent-rose);
-      opacity: 0.15;
-      animation: floatUp 12s infinite linear;
-      font-size: 1.2rem;
-    }
+        .floating-heart {
+            position: absolute;
+            color: var(--primary);
+            opacity: 0.15;
+            animation: floatUp 15s infinite linear;
+        }
 
-    @keyframes floatUp {
-      0% {
-        transform: translateY(100vh) scale(0.5) rotate(0deg);
-        opacity: 0;
-      }
-      20% {
-        opacity: 0.25;
-      }
-      80% {
-        opacity: 0.2;
-      }
-      100% {
-        transform: translateY(-10vh) scale(1.2) rotate(360deg);
-        opacity: 0;
-      }
-    }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(105vh) scale(0.5) rotate(0deg);
+                opacity: 0;
+            }
+            20% { opacity: 0.2; }
+            80% { opacity: 0.2; }
+            100% {
+                transform: translateY(-10vh) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
 
-    /* Novel Container Layout */
-    .app-wrapper {
-      position: relative;
-      z-index: 1;
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 40px 20px 80px 20px;
-    }
+        /* Container Layout */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
 
-    /* Hero Header */
-    header.novel-header {
-      text-align: center;
-      padding: 60px 20px 40px 20px;
-      margin-bottom: 50px;
-      border-bottom: 1px solid var(--border-glow);
-      position: relative;
-    }
+        /* Novel Hero Header */
+        header {
+            text-align: center;
+            padding: 5rem 1rem 4rem;
+            border-bottom: 1px solid rgba(243, 198, 143, 0.2);
+            margin-bottom: 4rem;
+            position: relative;
+        }
 
-    header.novel-header::after {
-      content: '♥';
-      position: absolute;
-      bottom: -14px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--bg-dark);
-      padding: 0 15px;
-      color: var(--accent-rose);
-      font-size: 1.2rem;
-    }
+        header::after {
+            content: '♥';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-dark);
+            padding: 0 15px;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
 
-    .title-tag {
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      font-size: 0.85rem;
-      color: var(--accent-gold);
-      margin-bottom: 12px;
-      font-weight: 600;
-    }
+        .book-subtitle {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-shadow: var(--rose-glow);
+        }
 
-    h1.novel-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3.4rem;
-      font-weight: 700;
-      line-height: 1.15;
-      background: linear-gradient(135deg, #fff 30%, var(--accent-rose) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 15px;
-    }
+        .book-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-gold);
+            letter-spacing: 2px;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
 
-    .subtitle {
-      font-style: italic;
-      color: var(--text-muted);
-      font-size: 1.15rem;
-      font-family: 'Cormorant Garamond', serif;
-    }
+        .author-tag {
+            font-size: 0.95rem;
+            color: var(--text-subtle);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
 
-    /* Visual Showcase Banner */
-    .banner-image-wrapper {
-      width: 100%;
-      height: 380px;
-      border-radius: 20px;
-      overflow: hidden;
-      position: relative;
-      margin-bottom: 50px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 20px var(--border-glow);
-      border: 1px solid var(--border-glow);
-    }
+        /* Chapter Sections */
+        .chapter {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            margin-bottom: 3.5rem;
+            border: 1px solid rgba(212, 42, 84, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    .banner-image-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.75) contrast(1.1);
-      transition: transform 0.8s ease;
-    }
+        .chapter:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(212, 42, 84, 0.15);
+        }
 
-    .banner-image-wrapper:hover img {
-      transform: scale(1.03);
-    }
+        .chapter-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
 
-    .banner-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 30px;
-      background: linear-gradient(to top, rgba(10, 6, 13, 0.95), transparent);
-    }
+        .chapter-num {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: var(--primary);
+            display: block;
+        }
 
-    .banner-caption {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-style: italic;
-      color: var(--accent-gold);
-    }
+        .chapter-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--text-gold);
+            letter-spacing: 1px;
+            margin-top: 0.2rem;
+        }
 
-    /* Chapter Content Styling */
-    .chapter-card {
-      background: var(--bg-card);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border-glow);
-      border-radius: 24px;
-      padding: 50px;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-      margin-bottom: 40px;
-    }
+        /* Paragraph Styling */
+        p {
+            margin-bottom: 1.6rem;
+            color: var(--text-light);
+            font-weight: 300;
+        }
 
-    .chapter-badge {
-      display: inline-block;
-      padding: 6px 16px;
-      border-radius: 50px;
-      background: rgba(255, 42, 109, 0.15);
-      border: 1px solid var(--accent-rose);
-      color: var(--accent-rose);
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 25px;
-    }
+        p::first-letter {
+            font-size: 1.1em;
+        }
 
-    h2.section-heading {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
-      color: #fff;
-      margin: 40px 0 20px 0;
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+        .chapter-1 p:first-of-type::first-letter {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            float: left;
+            line-height: 1;
+            padding-right: 0.7rem;
+            padding-top: 0.1rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
 
-    h2.section-heading::before {
-      content: '';
-      display: inline-block;
-      width: 4px;
-      height: 28px;
-      background: var(--accent-rose);
-      border-radius: 2px;
-    }
+        /* Visual Media Containers */
+        .image-card {
+            width: 100%;
+            margin: 2.5rem 0;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(243, 198, 143, 0.3);
+            box-shadow: var(--rose-glow);
+            position: relative;
+        }
 
-    p.paragraph {
-      font-size: 1.1rem;
-      color: var(--text-main);
-      margin-bottom: 24px;
-      font-weight: 300;
-      letter-spacing: 0.2px;
-    }
+        .image-card img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.9) contrast(1.05);
+            transition: transform 0.5s ease;
+        }
 
-    p.paragraph::first-letter {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3em;
-      font-weight: 700;
-      color: var(--accent-gold);
-    }
+        .image-card:hover img {
+            transform: scale(1.03);
+        }
 
-    /* Dialogue Blocks */
-    .dialogue {
-      background: rgba(255, 255, 255, 0.03);
-      border-left: 3px solid var(--accent-rose);
-      padding: 16px 22px;
-      margin: 25px 0;
-      border-radius: 0 12px 12px 0;
-      font-style: italic;
-      color: #fff;
-    }
+        .image-caption {
+            background: rgba(10, 5, 8, 0.85);
+            padding: 0.8rem 1.2rem;
+            font-size: 0.85rem;
+            color: var(--text-gold);
+            text-align: center;
+            font-style: italic;
+            border-top: 1px solid rgba(212, 42, 84, 0.2);
+        }
 
-    .dialogue span.speaker {
-      display: block;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 0.85rem;
-      color: var(--accent-gold);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 4px;
-    }
+        /* Special Dialogue & Highlight Boxes */
+        .quote-box {
+            border-left: 3px solid var(--primary);
+            background: var(--primary-soft);
+            padding: 1.2rem 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 15px 15px 0;
+            font-style: italic;
+            color: var(--text-light);
+        }
 
-    /* Spicy & Emotional Callouts */
-    .spicy-box {
-      background: linear-gradient(135deg, rgba(128, 10, 54, 0.4), rgba(255, 42, 109, 0.15));
-      border: 1px dashed var(--accent-rose);
-      border-radius: 16px;
-      padding: 30px;
-      margin: 35px 0;
-      position: relative;
-    }
+        .flirt-box {
+            border-left: 3px solid var(--text-gold);
+            background: rgba(243, 198, 143, 0.08);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 15px 15px 0;
+            position: relative;
+        }
 
-    .spicy-box::before {
-      content: '🔥';
-      position: absolute;
-      top: -15px;
-      right: 25px;
-      font-size: 1.5rem;
-      background: var(--bg-dark);
-      padding: 0 8px;
-      border-radius: 50%;
-    }
+        .flirt-box::before {
+            content: '🔥';
+            position: absolute;
+            top: -12px;
+            right: 15px;
+            font-size: 1.2rem;
+        }
 
-    /* Image Grid for Scene Context */
-    .scene-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin: 40px 0;
-    }
+        .warning-box {
+            border: 1px solid rgba(212, 42, 84, 0.5);
+            background: rgba(212, 42, 84, 0.1);
+            padding: 1.8rem;
+            border-radius: 15px;
+            margin: 2.5rem 0;
+            text-align: center;
+            box-shadow: inset 0 0 15px rgba(212, 42, 84, 0.2);
+        }
 
-    .scene-card {
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-      height: 240px;
-    }
+        .warning-box i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            display: block;
+        }
 
-    .scene-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
+        /* Interactive Footer & Action Button */
+        footer {
+            text-align: center;
+            padding: 4rem 1rem 2rem;
+            border-top: 1px solid rgba(243, 198, 143, 0.2);
+            margin-top: 2rem;
+        }
 
-    .scene-card:hover img {
-      transform: scale(1.08);
-    }
+        .love-signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-shadow: var(--rose-glow);
+        }
 
-    .scene-label {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 12px 15px;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
+        .pdf-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary) 0%, #8a1c40 100%);
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: var(--rose-glow);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            margin-top: 1.5rem;
+        }
 
-    /* Romantic Quote Highlight */
-    .quote-card {
-      text-align: center;
-      padding: 40px 20px;
-      margin: 40px 0;
-      border-top: 1px solid var(--border-glow);
-      border-bottom: 1px solid var(--border-glow);
-    }
+        .pdf-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px rgba(212, 42, 84, 0.7);
+        }
 
-    .quote-card blockquote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem;
-      font-style: italic;
-      color: var(--accent-gold);
-      line-height: 1.4;
-      margin-bottom: 15px;
-    }
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .book-title { font-size: 2rem; }
+            .book-subtitle { font-size: 2rem; }
+            .chapter { padding: 2rem 1.2rem; }
+            .image-card img { height: 260px; }
+            body { font-size: 1.02rem; }
+        }
 
-    .quote-card cite {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    /* Danger / Warning Box */
-    .warning-box {
-      background: rgba(255, 42, 109, 0.08);
-      border: 1px solid rgba(255, 42, 109, 0.4);
-      border-radius: 16px;
-      padding: 25px;
-      margin: 35px 0;
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
-    }
-
-    .warning-box i {
-      font-size: 1.8rem;
-      color: var(--accent-rose);
-      margin-top: 3px;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 40px 0;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    footer p.heart-line {
-      color: var(--accent-rose);
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-    }
-
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      .app-wrapper {
-        padding: 20px 15px 40px 15px;
-      }
-
-      .chapter-card {
-        padding: 25px 20px;
-      }
-
-      h1.novel-title {
-        font-size: 2.3rem;
-      }
-
-      .banner-image-wrapper {
-        height: 250px;
-      }
-
-      .scene-grid {
-        grid-template-columns: 1fr;
-      }
-
-      h2.section-heading {
-        font-size: 1.7rem;
-      }
-
-      .quote-card blockquote {
-        font-size: 1.4rem;
-      }
-    }
-  </style>
+        /* Print Style for Crisp PDF Downloads */
+        @media print {
+            body { background: #fff; color: #000; }
+            .chapter { background: none; border: none; box-shadow: none; padding: 0; }
+            .hearts-container, .pdf-btn { display: none; }
+            .book-title, .chapter-title { color: #000; }
+            p { color: #222; }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Floating Hearts Background Effect -->
-  <div class="hearts-container" id="heartsBg"></div>
+    <!-- Floating Background Animation -->
+    <div class="hearts-container" id="heartsBg"></div>
 
-  <div class="app-wrapper">
+    <div class="container">
+        
+        <!-- Novel Title Header -->
+        <header>
+            <div class="book-subtitle">A True Story of Unstoppable Love</div>
+            <h1 class="book-title">Amara, the LinkedIn Girl I Met</h1>
+            <div class="author-tag">Written from the deepest parts of my heart</div>
+        </header>
 
-    <!-- Header Section -->
-    <header class="novel-header">
-      <div class="title-tag">An Uncensored Tale of Long-Distance Passion</div>
-      <h1 class="novel-title">Amara, the LinkedIn Girl I Met</h1>
-      <div class="subtitle">Chapter One: The 3 AM Miracle & The Flames We Couldn't Tame</div>
-    </header>
+        <!-- Chapter Content -->
+        <main class="chapter-1">
+            <article class="chapter">
+                
+                <div class="chapter-header">
+                    <span class="chapter-num">Chapter One</span>
+                    <h2 class="chapter-title">The 3 AM Miracle</h2>
+                </div>
 
-    <!-- Main Banner Image -->
-    <div class="banner-image-wrapper">
-      <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80" alt="Late Night Love Connection">
-      <div class="banner-overlay">
-        <div class="banner-caption">"A single notification at 3 AM that changed everything..."</div>
-      </div>
+                <p>It was past three o'clock in the morning. The dark world outside was completely dead silent, but inside my small room here in Nigeria, my mind was wide open. The soft, lonely blue light of my phone screen lit up my dark room. I was just scrolling aimlessly through social media, not looking for anything special, just trying to pass time.</p>
+
+                <p>Then, a quiet notification popped up on my screen.</p>
+
+                <p>It was a new message on LinkedIn. I opened it, expecting another dry, formal business text about work or network connections. But instead, my eyes met a warm, gentle message from a girl named Amara. A girl I had never seen or heard of in my entire life. A girl I had no single idea would soon become my whole world, my breath, and my ultimate ride-or-die.</p>
+
+                <div class="image-card">
+                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1000&q=80" alt="Late Night Message Connection">
+                    <div class="image-caption">Past 3 AM — The exact moment a simple LinkedIn message changed my entire life forever.</div>
+                </div>
+
+                <p>She simply sent a text checking up on me. It was so simple, yet so pure and sincere. There was an irresistible sweet energy around her from that very first second. Something inside me screamed not to ignore her. I decided to take her seriously right away.</p>
+
+                <div class="quote-box">
+                    "So, what kind of business model do you run?" she asked me.
+                </div>
+
+                <p>She was so funny, so lively, and so full of sweet joy! Her words felt like warm morning sunlight breaking through a cold, dark room. Curious to know more about this incredible lady, I clicked on her LinkedIn profile. That was when I discovered she was an author! She had already written and published her very own book.</p>
+
+                <p>I got her book and read every single line with pure excitement. It was amazing. After reading it, I set up a call with her so we could share our thoughts. I gave her my honest, loving review and pointed out a few tiny things she could tweak to make it even better. We talked for hours that night. By the time I dropped my phone, a sweet, overwhelming realization hit my soul: <em>I really, really like this girl.</em></p>
+
+                <!-- SECTION 2 -->
+                <div class="chapter-header" style="margin-top: 4rem;">
+                    <span class="chapter-num">Part Two</span>
+                    <h2 class="chapter-title">Pictures, Promises & Pure Desire</h2>
+                </div>
+
+                <p>I am naturally a very quiet and reserved guy. I keep my space and build high walls around my heart. But with Amara, all my walls started melting away without me even trying to stop it.</p>
+
+                <p>"Can I have your WhatsApp number?" she asked me softly.</p>
+
+                <p>I didn't hesitate for a single second. I gave it to her right away. We moved over to WhatsApp, and our sweet bond grew instantly stronger. Every minute spent talking to her felt like pure magic.</p>
+
+                <p>"Send me a picture of you," I texted her, my heart pounding fast against my chest.</p>
+
+                <p>She sent her photos. The moment I tapped to open them, my breath caught deep in my throat. She was unbelievably breathtaking! Beautiful, graceful, stunning, and naturally gorgeous. Her eyes carried a spark that completely captured my heart.</p>
+
+                <p>"Now it's your turn!" she requested with a cute emoji.</p>
+
+                <p>I sent my photos over, holding my breath like a nervous boy. A few seconds later, my phone buzzed—she loved them!</p>
+
+                <div class="image-card">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=80" alt="Breathtaking Beauty">
+                    <div class="image-caption">Her breathtaking photos that instantly stole my breath and captured my entire soul.</div>
+                </div>
+
+                <p>Everything felt like a dream come true, until we started talking about our ages.</p>
+
+                <p>"I'm 18," she told me.</p>
+
+                <p>My heart sank into my stomach. I stopped typing. I am 26 years old.</p>
+
+                <p><em>26 and 18?</em> I panicked inside. <em>I am old enough to be her big brother, almost old enough to give birth to her!</em> A heavy wave of guilt and fear washed over me. I tried to step back. I tried to build my cold walls back up to protect both of us.</p>
+
+                <p>"I am an adult!" she insisted firmly, leaving no room for doubt.</p>
+
+                <p>We are both full adults, so I believed her. But even if I wanted to run away, my heart was already gone. It was too late! I couldn't stop thinking about her for a single minute. She was the first thought on my mind when I woke up in the morning, and the last image in my eyes before I fell asleep at night.</p>
+
+                <p>Finally, I couldn't keep it inside me anymore. I gathered all the courage in my body and laid my entire heart bare before her.</p>
+
+                <p>"Amara, I like you," I told her, my voice trembling. "I don't just want us to date. I want to marry you!"</p>
+
+                <p>She paused for a moment. "I'm not ready to commit to a relationship right now," she answered softly.</p>
+
+                <p>Her words said no, but her sweet actions whispered a very loud YES!</p>
+
+                <div class="flirt-box">
+                    <p>She was all over me! We both wanted each other so intensely. She longed to hear my deep voice every hour, just like I desperately craved to see her breathtaking smile on video calls. As two consenting adults completely wild for each other, our calls quickly turned extremely spicy, hot, and intimate.</p>
+                    <p>When she giggled on our video calls, my soul melted. She would tease me, talk dirty to me, and get so turned on that on several crazy occasions, talking to me made her completely wet! Hearing her whisper my name while she shivered with passion drove me completely insane. She opened up her most secret vulnerabilities to me, and for the very first time in my entire life, I completely lost my guard for a woman.</p>
+                </div>
+
+                <p>I felt totally defenseless. I felt a little ashamed that I fell so hard, so fast, and so helplessly. But at the very same time, I felt so deeply proud to belong to her. To be completely honest with you, if Amara were right here in the same room with me, I wouldn't be able to stay disciplined at all! I would lose all my moral restraint. She is so physically appealing to me that my entire body literally aches just to hold her tight, feel her skin, and kiss her endlessly. All I ever want, night and day, is her!</p>
+
+                <!-- SECTION 3 -->
+                <div class="chapter-header" style="margin-top: 4rem;">
+                    <span class="chapter-num">Part Three</span>
+                    <h2 class="chapter-title">An Ocean Apart & The Fears We Hold</h2>
+                </div>
+
+                <p>The only saving grace keeping my hands off her right now is the massive distance between us. Amara lives far away in Cyprus, studying hard at her university. I am here in Nigeria. A vast blue ocean and thousands of long miles stand between us. I honestly do not know what wild things would happen if we were sitting in the same dark room together right now!</p>
+
+                <div class="image-card">
+                    <img src="https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?auto=format&fit=crop&w=1000&q=80" alt="Distance and Longing">
+                    <div class="image-caption">Thousands of miles across the ocean, yet our hearts beat as one single flame.</div>
+                </div>
+
+                <p>We are so different from each other, just like two unique pieces of a puzzle. She loves reading romantic novels, while I love listening to deep, thoughtful podcasts. She is far more exposed to the wild world than I am—I am just too innocent! She knows things about life and naughty love that I didn't even understand yet. She teaches me some bad, spicy stuff that leaves my cheeks burning hot!</p>
+
+                <p>Behind all this sweetness and burning passion, a dark shadow of deep fear sits inside my heart. Something quiet inside me keeps whispering night and day: <em>"This isn't going to last."</em></p>
+
+                <p>I am terrified! I am so scared of waking up one painful morning only to realize that this whole sweet love was just a beautiful nightmare. But I love her way too much to ever walk away. I am ready to give this relationship my absolute best, fight with all my power, and see where destiny lands us.</p>
+
+                <!-- SECTION 4 -->
+                <div class="chapter-header" style="margin-top: 4rem;">
+                    <span class="chapter-num">Part Four</span>
+                    <h2 class="chapter-title">The World Against Us & A Dangerous Vow</h2>
+                </div>
+
+                <p>"Tell your dad about us," I asked her gently one afternoon.</p>
+
+                <p>She agreed. She built up courage, went to her father, and told him about the Nigerian man who holds her heart completely. But her dad's immediate response was a cold, firm, and painful <strong>NO!</strong> He strongly refused, saying he does not want his young daughter in any relationship right now.</p>
+
+                <p>Then came her aunt. Her aunt made it crystal clear without holding back: she does not want Amara dating a Nigerian man at all! They are terrified that if she marries me, she will be forced to leave Europe, come back, and stay in Nigeria forever because of marriage.</p>
+
+                <p>Her entire family is standing like a giant, unbreakable wall against us. They don't want me. They don't want us together. Amara is the only brave girl in her entire family fighting for me. She is the only one truly in love with me!</p>
+
+                <p>I am deeply distressed. My heart is so heavy, and hot tears sit right behind my eyes every night. But beneath all this painful trial, a small, stubborn candle of hope is still burning brightly in my soul.</p>
+
+                <div class="warning-box">
+                    <i class="fa-solid fa-skull-crossbones"></i>
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem; font-family: 'Cinzel', serif;">Her Ultimate Deal-Breaker</h3>
+                    <p style="margin-bottom: 0;">Amara has suffered deep emotional pain in her past. She is deeply traumatized from past heartbreaks, even though she acts tough and refuses to admit it. Because of this, she looked straight into my eyes and warned me sternly: <strong>"If I ever catch you cheating on me, I will KILL you!"</strong></p>
+                    <p style="margin-top: 0.8rem; font-style: italic; color: var(--text-gold);">Cheating is her absolute number-one deal-breaker. And trust me, I have learned to value my life dearly! I will NEVER cheat on her, because I know my baby is not playing—she will literally end my life, and I love my life too much to lose her!</p>
+                </div>
+
+                <p>Amara, my sweet, beautiful love... I love you with every single drop of blood inside my body. But I am so scared that this won't last forever. <em>Am I making the wrong choice?</em></p>
+
+                <p>I am so deeply invested in you. I am completely willing to pour all my emotions, my soul, my strength, and my entire future into loving you forever. I just pray with all my heart... I pray that our families do not succeed in tearing us apart!</p>
+
+                <p style="font-size: 1.3rem; text-align: center; color: var(--text-gold); font-weight: 600; margin-top: 2rem;">No matter what happens tomorrow, today and forever, my heart is completely, 100% yours.</p>
+
+            </article>
+        </main>
+
+        <!-- Romantic Footer -->
+        <footer>
+            <div class="love-signature">Forever Yours, My Love</div>
+            <p style="color: var(--text-subtle); font-size: 0.9rem;">Designed specifically for Amara — My LinkedIn Girl</p>
+            
+            <button class="pdf-btn" onclick="window.print()">
+                <i class="fa-solid fa-file-pdf"></i> Download / Save as PDF
+            </button>
+        </footer>
+
     </div>
 
-    <!-- Chapter Content Card -->
-    <main class="chapter-card">
+    <!-- Script for Dynamic Floating Hearts Background -->
+    <script>
+        function createHearts() {
+            const container = id = document.getElementById('heartsBg');
+            const heartIcons = ['♥', '💖', '💕', '💗', '💓'];
+            const heartCount = 25;
 
-      <span class="chapter-badge"><i class="fa-solid fa-heart"></i> Chapter One</span>
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                
+                // Random positioning and sizing
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 10 + 8) + 's';
+                heart.style.animationDelay = (Math.random() * 5) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 12) + 'px';
+                
+                container.appendChild(heart);
+            }
+        }
 
-      <h2 class="section-heading">The 3 AM Miracle</h2>
-
-      <p class="paragraph">
-        It was past three o'clock in the morning. The entire world was wrapped in pitch-black silence, but my mind was racing, wide awake. I was sitting in the quiet dark of my room here in Nigeria, illuminated only by the soft, electric blue glow of my phone screen. I wasn't looking for anything special—just aimlessly scrolling away the midnight hours.
-      </p>
-
-      <p class="paragraph">
-        Then, a notification popped up at the top of my screen. A new direct message on LinkedIn.
-      </p>
-
-      <p class="paragraph">
-        I tapped it open expecting the usual stiff business pitch. Instead, my eyes landed on a soft, warm message from a girl named Amara. A complete stranger. A girl living thousands of miles away that I never in my wildest dreams imagined would become my entire world—my absolute ride-or-die.
-      </p>
-
-      <div class="dialogue">
-        <span class="speaker">Amara</span>
-        "Hey! Just thought to check on you and see how your day went."
-      </div>
-
-      <p class="paragraph">
-        It was so simple, yet so disarmingly sincere. Right from that very first second, her energy radiated through the glass screen. I knew instantly I couldn't just give her a dry reply. I decided to take her seriously.
-      </p>
-
-      <div class="dialogue">
-        <span class="speaker">Amara</span>
-        "So tell me... what kind of business model do you actually run?"
-      </div>
-
-      <p class="paragraph">
-        She was playful, funny, jovial, and ridiculously full of life. Talking to her felt like warm sunlight cutting straight through a dark room. Intrigued, I clicked over to her profile to see who this captivating girl really was.
-      </p>
-
-      <p class="paragraph">
-        That was when I discovered she was an author. She had already written and published her own book! Impressed, I got my hands on her book and read it line by line. It was brilliant. Afterwards, I reached out to schedule a call with her so we could talk about it. During our review call, I pointed out a few tiny things she could tweak, giving her my honest feedback.
-      </p>
-
-      <p class="paragraph">
-        We ended up talking for hours that night. By the time I finally put my phone down, my heart was thumping against my ribs with a sweet, undeniable realization: <em>I am completely hooked on this girl.</em>
-      </p>
-
-      <!-- Scene Grid Visuals -->
-      <div class="scene-grid">
-        <div class="scene-card">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Amara's Beauty">
-          <div class="scene-label"><i class="fa-solid fa-camera"></i> Breathtaking & Unapologetic</div>
-        </div>
-        <div class="scene-card">
-          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Late Night Whispers">
-          <div class="scene-label"><i class="fa-solid fa-phone"></i> Late Night Video Calls</div>
-        </div>
-      </div>
-
-      <h2 class="section-heading">Giggles, Whispers & Irresistible Heat</h2>
-
-      <p class="paragraph">
-        I am naturally a quiet, reserved guy. I keep my boundaries high and my guard even higher. But with Amara, every single wall I built over a lifetime began to melt like soft wax under a warm flame.
-      </p>
-
-      <p class="paragraph">
-        "Can I have your WhatsApp number?" she asked. I didn't hesitate for a single second. I gave it to her, and our late-night conversations migrated straight to WhatsApp. That's when the real sparks ignited.
-      </p>
-
-      <p class="paragraph">
-        "Send me a picture of you," I texted her one night, my chest tightening with anticipation. When she sent her photos over, my breath caught in my throat. She was breathtaking—stunning curves, radiant skin, and eyes that held a wild, playful confidence.
-      </p>
-
-      <p class="paragraph">
-        "Now your turn!" she demanded. I sent mine over, holding my breath. Seconds later, her voice notes came flooding in—she absolutely loved what she saw.
-      </p>
-
-      <div class="spicy-box">
-        <p class="paragraph" style="margin-bottom: 12px; font-weight: 500; color: #fff;">
-          The Temperature Rises...
-        </p>
-        <p class="paragraph" style="margin-bottom: 0;">
-          Our calls shifted from polite catching-up to intense, flirty late-night sessions. She would giggle soft, seductive laughs into her pillow that sent electric shocks straight down my spine. We are two consenting adults, and the chemistry between us became explosive. On several occasions while talking to me, listening to my voice and watching me on video calls, she became so aroused and overwhelmed with desire that she openly admitted how wet she got just thinking about me touching her.
-        </p>
-      </div>
-
-      <p class="paragraph">
-        Hearing her breath hitch on those calls destroyed my composure. If Amara were right here in the same room with me in Nigeria instead of studying miles away in Cyprus, I swear I would completely lose all moral discipline. I wouldn't be able to keep my hands off her. She is so physically appealing to me that my entire body aches just to wrap her up and pull her close.
-      </p>
-
-      <!-- Romantic Quote -->
-      <div class="quote-card">
-        <blockquote>"Her voice said she wasn't ready to commit, but the way she giggled, bit her lip, and looked at me on video call told a completely different story."</blockquote>
-        <cite>— The Unspoken Truth</cite>
-      </div>
-
-      <h2 class="section-heading">The Age Barrier & Unspoken Promises</h2>
-
-      <p class="paragraph">
-        Everything felt like a dream until we brought up our exact ages.
-      </p>
-
-      <p class="paragraph">
-        "I'm 18," she told me.
-      </p>
-
-      <p class="paragraph">
-        My stomach dropped. I froze. I am 26 years old. <em>26 and 18?!</em> I panicked internally. I felt like I was old enough to be her big brother, almost old enough to give birth to her! A wave of hesitation washed over me, and I tried to pull back to protect both of us.
-      </p>
-
-      <div class="dialogue">
-        <span class="speaker">Amara</span>
-        "Look at me! I am an adult, okay? Stop overthinking this!"
-      </div>
-
-      <p class="paragraph">
-        Her voice was so firm, so fierce, and so confident that I believed her. Besides, it was already way too late for me to run away. She was in my head when I woke up, and her smile was the last thing I saw before I closed my eyes at night.
-      </p>
-
-      <p class="paragraph">
-        Unable to contain it any longer, I laid all my cards on the table. "Amara, I don't just like you. I don't just want to date you... I want to make you my wife."
-      </p>
-
-      <p class="paragraph">
-        She paused, looking down softly. "I'm not ready to commit to a formal relationship right now," she whispered.
-      </p>
-
-      <p class="paragraph">
-        Yet, her actions screamed the exact opposite. She wanted to hear my voice every waking hour. She craved seeing my face on video calls just as much as I needed her smile. She let down her walls, showing me her deepest vulnerabilities. And for the first time in my life, I surrendered completely. I lost my guard for a woman, feeling both exposed and extraordinarily proud to be hers.
-      </p>
-
-      <h2 class="section-heading">She Taught Me Bad Things & Loved Me Hard</h2>
-
-      <p class="paragraph">
-        We are two completely different worlds linked by a digital screen. She loves reading heavy romantic novels; I love listening to intellectual podcasts. 
-      </p>
-
-      <p class="paragraph">
-        Even though I am older, Amara is far more exposed to the world than I am. I am just too innocent, too reserved. She knows wild things about life, intimacy, and romance that I never even dreamed of—and piece by piece, she has been teaching me some naughty, thrilling things that keep my mind spinning for days.
-      </p>
-
-      <!-- Warning / Threat Box -->
-      <div class="warning-box">
-        <i class="fa-solid fa-skull-crossbones"></i>
-        <div>
-          <strong style="color: var(--accent-rose); font-size: 1.1rem; display: block; margin-bottom: 6px;">The Ultimate Dealbreaker: Her Warning</strong>
-          <p class="paragraph" style="margin-bottom: 0; font-size: 1rem;">
-            Amara carries deep trauma from her past, even if she hates to admit it. But she made one thing dead clear to me: <em>"If I ever catch you cheating on me, I will literally kill you."</em> Cheating is her ultimate dealbreaker. And honestly? I value my life far too much! I won't even dare glance elsewhere because my babe will straight-up end me—and I love her too much to ever betray her trust anyway.
-          </p>
-        </div>
-      </div>
-
-      <h2 class="section-heading">An Ocean Apart & The World Against Us</h2>
-
-      <p class="paragraph">
-        Right now, the only thing keeping us from burning down the house is geographic distance. She is over in Cyprus pursuing her university degree, while I am here in Nigeria. Thousands of miles of open sea lie between our lips.
-      </p>
-
-      <p class="paragraph">
-        When I asked her to tell her father about us, she gathered her courage and did. His response was a cold, resounding <strong>NO</strong>. He wants zero distractions for his young daughter. Then her aunt stepped in, warning her never to date a Nigerian man because they fear she will be dragged back to settle down in Nigeria after marriage.
-      </p>
-
-      <p class="paragraph">
-        Her entire family stands like an impenetrable iron wall against our union. They don't want me. They don't want us. Amara is standing all alone on the battlefield, fighting her whole family just to keep loving me.
-      </p>
-
-      <p class="paragraph">
-        I am distressed. My heart feels ridiculously heavy, and a dark shadow keeps whispering: <em>"What if this doesn't last? Am I making a mistake?"</em>
-      </p>
-
-      <p class="paragraph">
-        But despite the fear, despite the distance, and despite her family's disapproval, a fierce flame of hope burns inside me. I am deeply, recklessly invested. I am willing to risk my entire heart for this girl.
-      </p>
-
-      <p class="paragraph" style="font-size: 1.2rem; font-weight: 600; color: var(--accent-gold); text-align: center; margin-top: 40px;">
-        Amara, my sweet baby... I love you with everything I have. No matter what tomorrow brings, today, my heart is completely, irrevocably yours.
-      </p>
-
-    </main>
-
-    <!-- Footer Section -->
-    <footer>
-      <p class="heart-line">♥ ♥ ♥</p>
-      <p>Amara, the LinkedIn Girl I Met • Written with Unfiltered Love</p>
-    </footer>
-
-  </div>
-
-  <!-- Animated Hearts Script -->
-  <script>
-    function createHearts() {
-      const container = id => document.getElementById(id);
-      const heartsContainer = container('heartsBg');
-      const heartIcons = ['fa-heart', 'fa-heart-pulse', 'fa-fire'];
-
-      for (let i = 0; i < 25; i++) {
-        const heart = document.createElement('i');
-        const randomIcon = heartIcons[Math.floor(Math.random() * heartIcons.length)];
-        
-        heart.className = `fa-solid ${randomIcon} heart-particle`;
-        heart.style.left = `${Math.random() * 100}%`;
-        heart.style.animationDelay = `${Math.random() * 10}s`;
-        heart.style.animationDuration = `${8 + Math.random() * 10}s`;
-        heart.style.fontSize = `${0.8 + Math.random() * 1.2}rem`;
-        
-        heartsContainer.appendChild(heart);
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', createHearts);
-  </script>
+        document.addEventListener('DOMContentLoaded', createHearts);
+    </script>
 </body>
 </html>
